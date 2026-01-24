@@ -8,7 +8,7 @@
 
 
 #include "Arduino.h"
-//#include "SPI.h"
+#include "SPI.h"
 
 
 //  BREAKOUT  MS5611  aka  GY63 - see datasheet
@@ -37,6 +37,7 @@
   #if defined(ARDUINO_ARCH_MBED)
   #define __SPI_CLASS__   SPIClass
   #elif defined(ARDUINO_ARCH_RP2040)
+  #include <SoftwareSPI.h>
   #define __SPI_CLASS__   SoftwareSPI
   #else
   #define __SPI_CLASS__   SPIClass
