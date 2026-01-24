@@ -37,7 +37,7 @@
   #if defined(ARDUINO_ARCH_MBED)
   #define __SPI_CLASS__   SPIClass
   #elif defined(ARDUINO_ARCH_RP2040)
-  #define __SPI_CLASS__   SPIClassRP2040
+  #define __SPI_CLASS__   SoftwareSPI
   #else
   #define __SPI_CLASS__   SPIClass
   #endif
