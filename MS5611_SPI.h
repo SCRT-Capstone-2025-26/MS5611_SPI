@@ -63,7 +63,7 @@ class MS5611_SPI
 {
 public:
   //       HARDWARE SPI
-  explicit MS5611_SPI(uint8_t select, __SPI_CLASS__ * mySPI = &SPI);
+  explicit MS5611_SPI(uint8_t select, __SPI_CLASS__ * mySPI);
   //       SOFTWARE SPI
   explicit MS5611_SPI(uint8_t select, uint8_t dataOut, uint8_t dataIn, uint8_t clock);
 
