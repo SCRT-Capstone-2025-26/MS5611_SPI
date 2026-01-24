@@ -8,7 +8,7 @@
 
 
 #include "Arduino.h"
-#include "SPI.h"
+//#include "SPI.h"
 
 
 //  BREAKOUT  MS5611  aka  GY63 - see datasheet
