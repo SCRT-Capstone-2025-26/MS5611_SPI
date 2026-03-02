@@ -77,6 +77,11 @@ public:
   bool     reset(uint8_t mathMode = 0);
 
 
+  int startReadRawTemp(uint16_t *delay);
+  int stepReadRawPres(uint16_t *delay);
+  int finishReading();
+
+
   //  the actual reading of the sensor;
   //  returns MS5611_READ_OK upon success
   int      read(uint8_t bits);
@@ -157,12 +162,16 @@ public:
 
 
 protected:
+  uint16_t convertAsync(const uint8_t addr, uint8_t bits);
   void     convert(const uint8_t addr, uint8_t bits);
+  int      handleRead();
   uint32_t readADC();
   uint16_t readProm(uint8_t reg);
   int      command(const uint8_t command);
   void     initConstants(uint8_t mathMode);
 
+  uint16_t _D1;
+  uint16_t _D2;
   uint8_t  _address;
   uint8_t  _samplingRate;
   int32_t  _temperature;
