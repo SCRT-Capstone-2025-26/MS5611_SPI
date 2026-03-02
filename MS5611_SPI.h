@@ -77,8 +77,8 @@ public:
   bool     reset(uint8_t mathMode = 0);
 
 
-  int startReadRawTemp(uint16_t *delay);
-  int stepReadRawPres(uint16_t *delay);
+  int startReadRawTemp(unsigned long *delay);
+  int stepReadRawPres(unsigned long *delay);
   int finishReading();
 
 
