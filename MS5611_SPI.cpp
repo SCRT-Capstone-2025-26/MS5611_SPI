@@ -384,6 +384,54 @@ void MS5611_SPI::convert(const uint8_t addr, uint8_t bits)
 }
 
 
+int MS5611::handleRead()
+{
+  //  Serial.println(_D1);
+  //  Serial.println(_D2);
+
+  //  TEST VALUES - comment lines above
+  //  uint32_t _D1 = 9085466;
+  //  uint32_t _D2 = 8569150;
+
+  //  TEMP & PRESS MATH - PAGE 7/20
+  float dT = _D2 - C[5];
+  _temperature = 2000 + dT * C[6];
+
+  float offset =  C[2] + dT * C[4];
+  float sens = C[1] + dT * C[3];
+
+  if (_compensation)
+  {
+    //  SECOND ORDER COMPENSATION - PAGE 8/20
+    //  COMMENT OUT < 2000 CORRECTION IF NOT NEEDED
+    //  NOTE TEMPERATURE IS IN 0.01 C
+    if (_temperature < 2000)
+    {
+      float T2 = dT * dT * 4.6566128731E-10;
+      float t = (_temperature - 2000) * (_temperature - 2000);
+      float offset2 = 2.5 * t;
+      float sens2 = 1.25 * t;
+      //  COMMENT OUT < -1500 CORRECTION IF NOT NEEDED
+      if (_temperature < -1500)
+      {
+        t = (_temperature + 1500) * (_temperature + 1500);
+        offset2 += 7 * t;
+        sens2 += 5.5 * t;
+      }
+      _temperature -= T2;
+      offset -= offset2;
+      sens -= sens2;
+    }
+    //  END SECOND ORDER COMPENSATION
+  }
+
+  _pressure = (_D1 * sens * 4.76837158205E-7 - offset) * 3.051757813E-5;
+
+  _lastRead = millis();
+  return MS5611_READ_OK;
+}
+
+
 uint16_t MS5611_SPI::readProm(uint8_t reg)
 {
   //  last EEPROM register is CRC - Page 13 datasheet.
