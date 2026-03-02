@@ -142,14 +142,14 @@ bool MS5611_SPI::reset(uint8_t mathMode)
 }
 
 
-int MS5611_SPI::startReadRawTemp(uint16_t *delay)
+int MS5611_SPI::startReadRawTemp(unsigned long *delay)
 {
   *delay = convertAsync(MS5611_CMD_CONVERT_D1, (uint8_t) _samplingRate);
   return MS5611_READ_OK;
 }
 
 
-int MS5611_SPI::stepReadRawPres(uint16_t *delay)
+int MS5611_SPI::stepReadRawPres(unsigned long *delay)
 {
   if (_result) return _result;
   _D1 = readADC();
