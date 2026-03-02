@@ -384,7 +384,7 @@ void MS5611_SPI::convert(const uint8_t addr, uint8_t bits)
 }
 
 
-int MS5611::handleRead()
+int MS5611_SPI::handleRead()
 {
   //  Serial.println(_D1);
   //  Serial.println(_D2);
