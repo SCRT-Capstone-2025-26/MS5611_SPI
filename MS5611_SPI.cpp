@@ -152,7 +152,7 @@ int MS5611_SPI::startReadRawTemp(unsigned long *delay)
 
 int MS5611_SPI::stepReadRawPres(unsigned long *delay)
 {
-  _D1 = readADC();
+  _D2 = readADC();
 
   *delay = convertAsync(MS5611_CMD_CONVERT_D1, (uint8_t) _samplingRate);
 
