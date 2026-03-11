@@ -145,26 +145,24 @@ bool MS5611_SPI::reset(uint8_t mathMode)
 int MS5611_SPI::startReadRawTemp(unsigned long *delay)
 {
   *delay = convertAsync(MS5611_CMD_CONVERT_D1, (uint8_t) _samplingRate);
+
   return MS5611_READ_OK;
 }
 
 
 int MS5611_SPI::stepReadRawPres(unsigned long *delay)
 {
-  if (_result) return _result;
   _D1 = readADC();
-  if (_result) return _result;
 
   *delay = convertAsync(MS5611_CMD_CONVERT_D1, (uint8_t) _samplingRate);
+
   return MS5611_READ_OK;
 }
 
 
 int MS5611_SPI::finishReading()
 {
-  if (_result) return _result;
   _D1 = readADC();
-  if (_result) return _result;
 
   return handleRead();
 }
@@ -176,15 +174,11 @@ int MS5611_SPI::read(uint8_t bits)
   //  ALL MAGIC NUMBERS ARE FROM DATASHEET
 
   convert(MS5611_CMD_CONVERT_D1, bits);
-  if (_result) return _result;
   //  NOTE: D1 and D2 seem reserved in MBED (NANO BLE)
   _D1 = readADC();
-  if (_result) return _result;
 
   convert(MS5611_CMD_CONVERT_D2, bits);
-  if (_result) return _result;
   _D2 = readADC();
-  if (_result) return _result;
 
   return handleRead();
 }
@@ -274,12 +268,6 @@ float MS5611_SPI::getSeaLevelPressure(float pressure, float altitude)
   float ratio = pow(x, 5.2553026);          //  == (1.0 / 0.190284));
   float seaLevelPressure = pressure / ratio;
   return seaLevelPressure;
-}
-
-
-int MS5611_SPI::getLastResult() const
-{
-  return _result;
 }
 
 
