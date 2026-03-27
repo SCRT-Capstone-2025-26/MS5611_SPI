@@ -170,8 +170,8 @@ protected:
   int      command(const uint8_t command);
   void     initConstants(uint8_t mathMode);
 
-  uint16_t _D1;
-  uint16_t _D2;
+  uint32_t _D1;
+  uint32_t _D2;
   uint8_t  _address;
   uint8_t  _samplingRate;
   int32_t  _temperature;
