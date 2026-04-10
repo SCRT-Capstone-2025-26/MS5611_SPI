@@ -94,7 +94,7 @@ bool MS5611_SPI::begin()
     digitalWrite(_clock,   LOW);
   }
 
-  return reset(0);  //  MS5611 has mathMode 0, see datasheet + initConstants.
+  return reset(1);  //  MS5611 has mathMode 0, see datasheet + initConstants.
 }
 
 

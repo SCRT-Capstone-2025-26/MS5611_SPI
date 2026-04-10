@@ -74,7 +74,7 @@ public:
   //       reset command + get constants
   //       mathMode = 0 (default), 1 = factor 2 fix.
   //       returns false if ROM constants are 0;
-  bool     reset(uint8_t mathMode = 0);
+  bool     reset(uint8_t mathMode = 1);
 
 
   int startReadRawTemp(unsigned long *delay);
